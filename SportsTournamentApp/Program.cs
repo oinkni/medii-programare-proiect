@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SportsTournamentApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<SportsTournamentAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SportsTournamentAppContext") ?? throw new InvalidOperationException("Connection string 'SportsTournamentAppContext' not found.")));
 
 var app = builder.Build();
 
