@@ -18,6 +18,12 @@
             @Html.DisplayFor(model => model.Tournament.Name)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tournament.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tournament.Description)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Tournament.startDate)
         </dt>
         <dd class="col-sm-10">
@@ -28,6 +34,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tournament.endDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tournament.Winner)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tournament.Winner.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tournament.Spotlight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tournament.Spotlight)
         </dd>
     </dl>
 </div>
