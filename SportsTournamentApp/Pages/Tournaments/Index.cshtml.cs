@@ -24,7 +24,7 @@ namespace SportsTournamentApp.Pages.Tournaments
         public async Task OnGetAsync()
         {
             Tournament = await _context.Tournament
-                .Include(t => t.Winner).ToListAsync();
+                .Include(t => t.WinningTeam).ToListAsync();
         }
     }
 }

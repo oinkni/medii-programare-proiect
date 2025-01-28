@@ -21,7 +21,7 @@ namespace SportsTournamentApp.Pages.Players
 
         public IActionResult OnGet()
         {
-        ViewData["TeamID"] = new SelectList(_context.Team, "ID", "ID");
+        ViewData["TeamID"] = new SelectList(_context.Team, "ID", "Name");
             return Page();
         }
 

@@ -29,7 +29,9 @@ namespace SportsTournamentApp.Pages.Tournaments
                 return NotFound();
             }
 
-            var tournament = await _context.Tournament.FirstOrDefaultAsync(m => m.ID == id);
+            var tournament = await _context.Tournament
+                .Include(a => a.WinningTeam)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (tournament == null)
             {

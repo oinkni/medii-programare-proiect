@@ -37,13 +37,13 @@ namespace SportsTournamentApp.Migrations
                     b.Property<DateTime>("MatchDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ScoreTeamA")
+                    b.Property<int?>("ScoreTeamA")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScoreTeamB")
+                    b.Property<int?>("ScoreTeamB")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamAID")
+                    b.Property<int>("TeamAID")
                         .HasColumnType("int");
 
                     b.Property<int?>("TeamBID")
@@ -136,6 +136,9 @@ namespace SportsTournamentApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -143,18 +146,15 @@ namespace SportsTournamentApp.Migrations
                     b.Property<bool>("Spotlight")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("WinnerID")
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("WinningTeamID")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("endDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("startDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("WinnerID");
+                    b.HasIndex("WinningTeamID");
 
                     b.ToTable("Tournament");
                 });
@@ -163,14 +163,16 @@ namespace SportsTournamentApp.Migrations
                 {
                     b.HasOne("SportsTournamentApp.Models.Team", "TeamA")
                         .WithMany()
-                        .HasForeignKey("TeamAID");
+                        .HasForeignKey("TeamAID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SportsTournamentApp.Models.Team", "TeamB")
                         .WithMany()
                         .HasForeignKey("TeamBID");
 
                     b.HasOne("SportsTournamentApp.Models.Tournament", "Tournament")
-                        .WithMany()
+                        .WithMany("Matches")
                         .HasForeignKey("TournamentID");
 
                     b.Navigation("TeamA");
@@ -191,11 +193,16 @@ namespace SportsTournamentApp.Migrations
 
             modelBuilder.Entity("SportsTournamentApp.Models.Tournament", b =>
                 {
-                    b.HasOne("SportsTournamentApp.Models.Team", "Winner")
+                    b.HasOne("SportsTournamentApp.Models.Team", "WinningTeam")
                         .WithMany()
-                        .HasForeignKey("WinnerID");
+                        .HasForeignKey("WinningTeamID");
 
-                    b.Navigation("Winner");
+                    b.Navigation("WinningTeam");
+                });
+
+            modelBuilder.Entity("SportsTournamentApp.Models.Tournament", b =>
+                {
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

@@ -30,15 +30,20 @@ namespace SportsTournamentApp.Pages.Matches
                 return NotFound();
             }
 
-            var match =  await _context.Match.FirstOrDefaultAsync(m => m.ID == id);
+            var match =  await _context.Match
+                 .Include(a => a.TeamA)
+                .Include(a => a.TeamB)
+                .Include(a => a.Tournament)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (match == null)
             {
                 return NotFound();
             }
             Match = match;
-           ViewData["TeamAID"] = new SelectList(_context.Team, "ID", "ID");
-           ViewData["TeamBID"] = new SelectList(_context.Team, "ID", "ID");
-           ViewData["TournamentID"] = new SelectList(_context.Tournament, "ID", "ID");
+            ViewData["TeamAID"] = new SelectList(_context.Team, "ID", "Name");
+            ViewData["TeamBID"] = new SelectList(_context.Team, "ID", "Name");
+            ViewData["TournamentID"] = new SelectList(_context.Tournament, "ID", "DisplayName");
             return Page();
         }
 

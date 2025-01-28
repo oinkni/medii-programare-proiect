@@ -11,6 +11,8 @@ namespace SportsTournamentApp.Models
 
         public string Coach { get; set; }
 
+
+        [Display(Name = "Founding Date")]
         [DataType(DataType.Date)]
         public DateTime FoundingDate { get; set; }
     }

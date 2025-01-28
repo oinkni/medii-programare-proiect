@@ -21,9 +21,9 @@ namespace SportsTournamentApp.Pages.Matches
 
         public IActionResult OnGet()
         {
-        ViewData["TeamAID"] = new SelectList(_context.Team, "ID", "ID");
-        ViewData["TeamBID"] = new SelectList(_context.Team, "ID", "ID");
-        ViewData["TournamentID"] = new SelectList(_context.Tournament, "ID", "ID");
+        ViewData["TeamAID"] = new SelectList(_context.Team, "ID", "Name");
+        ViewData["TeamBID"] = new SelectList(_context.Team, "ID", "Name");
+        ViewData["TournamentID"] = new SelectList(_context.Tournament, "ID", "DisplayName");
             return Page();
         }
 

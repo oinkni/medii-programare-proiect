@@ -20,13 +20,13 @@
                 @Html.DisplayNameFor(model => model.Tournament[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].startDate)
+                @Html.DisplayNameFor(model => model.Tournament[0].StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].endDate)
+                @Html.DisplayNameFor(model => model.Tournament[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].Winner)
+                @Html.DisplayNameFor(model => model.Tournament[0].WinningTeam)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Tournament[0].Spotlight)
@@ -44,13 +44,13 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.startDate)
+                @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.endDate)
+                @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Winner.ID)
+                @Html.DisplayFor(modelItem => item.WinningTeam.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Spotlight)

@@ -36,7 +36,7 @@ namespace SportsTournamentApp.Pages.Tournaments
                 return NotFound();
             }
             Tournament = tournament;
-           ViewData["WinnerID"] = new SelectList(_context.Team, "ID", "ID");
+           ViewData["WinningTeamID"] = new SelectList(_context.Team, "ID", "Name");
             return Page();
         }
 

@@ -30,13 +30,14 @@ namespace SportsTournamentApp.Pages.Players
                 return NotFound();
             }
 
-            var player =  await _context.Player.FirstOrDefaultAsync(m => m.ID == id);
+            var player =  await _context.Player
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (player == null)
             {
                 return NotFound();
             }
             Player = player;
-           ViewData["TeamID"] = new SelectList(_context.Team, "ID", "ID");
+           ViewData["TeamID"] = new SelectList(_context.Team, "ID", "Name");
             return Page();
         }
 

@@ -29,7 +29,9 @@ namespace SportsTournamentApp.Pages.Players
                 return NotFound();
             }
 
-            var player = await _context.Player.FirstOrDefaultAsync(m => m.ID == id);
+            var player = await _context.Player
+                .Include(a => a.Team)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (player == null)
             {

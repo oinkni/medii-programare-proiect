@@ -28,7 +28,12 @@ namespace SportsTournamentApp.Pages.Matches
                 return NotFound();
             }
 
-            var match = await _context.Match.FirstOrDefaultAsync(m => m.ID == id);
+            var match = await _context.Match
+                .Include(a => a.TeamA)
+                .Include(a => a.TeamB)
+                .Include(a => a.Tournament)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (match == null)
             {
                 return NotFound();

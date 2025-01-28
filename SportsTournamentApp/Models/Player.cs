@@ -20,7 +20,7 @@ namespace SportsTournamentApp.Models
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Full Name")]
         [NotMapped]
         public string FullName
         {
@@ -30,6 +30,8 @@ namespace SportsTournamentApp.Models
             }
         }
 
+
+        [Display(Name = "Team")]
         public int? TeamID { get; set; }
         public Team? Team { get; set; }
     }

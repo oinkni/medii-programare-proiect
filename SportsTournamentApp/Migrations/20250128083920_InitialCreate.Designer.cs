@@ -12,7 +12,7 @@ using SportsTournamentApp.Data;
 namespace SportsTournamentApp.Migrations
 {
     [DbContext(typeof(SportsTournamentAppContext))]
-    [Migration("20250113142537_InitialCreate")]
+    [Migration("20250128083920_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,13 +40,13 @@ namespace SportsTournamentApp.Migrations
                     b.Property<DateTime>("MatchDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ScoreTeamA")
+                    b.Property<int?>("ScoreTeamA")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScoreTeamB")
+                    b.Property<int?>("ScoreTeamB")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamAID")
+                    b.Property<int>("TeamAID")
                         .HasColumnType("int");
 
                     b.Property<int?>("TeamBID")
@@ -111,6 +111,10 @@ namespace SportsTournamentApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("FoundingDate")
                         .HasColumnType("datetime2");
 
@@ -131,17 +135,29 @@ namespace SportsTournamentApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("endDate")
+                    b.Property<bool>("Spotlight")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("startDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("WinningTeamID")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("WinningTeamID");
 
                     b.ToTable("Tournament");
                 });
@@ -150,14 +166,16 @@ namespace SportsTournamentApp.Migrations
                 {
                     b.HasOne("SportsTournamentApp.Models.Team", "TeamA")
                         .WithMany()
-                        .HasForeignKey("TeamAID");
+                        .HasForeignKey("TeamAID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SportsTournamentApp.Models.Team", "TeamB")
                         .WithMany()
                         .HasForeignKey("TeamBID");
 
                     b.HasOne("SportsTournamentApp.Models.Tournament", "Tournament")
-                        .WithMany()
+                        .WithMany("Matches")
                         .HasForeignKey("TournamentID");
 
                     b.Navigation("TeamA");
@@ -174,6 +192,20 @@ namespace SportsTournamentApp.Migrations
                         .HasForeignKey("TeamID");
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("SportsTournamentApp.Models.Tournament", b =>
+                {
+                    b.HasOne("SportsTournamentApp.Models.Team", "WinningTeam")
+                        .WithMany()
+                        .HasForeignKey("WinningTeamID");
+
+                    b.Navigation("WinningTeam");
+                });
+
+            modelBuilder.Entity("SportsTournamentApp.Models.Tournament", b =>
+                {
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }
