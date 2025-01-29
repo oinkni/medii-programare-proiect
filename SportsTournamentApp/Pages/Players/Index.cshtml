@@ -11,23 +11,41 @@
 @if (User.IsInRole("Admin")) {
     <a asp-page="Create">Create New</a>
 }
+
+<form asp-page="./Index" method="get" class="d-flex flex-column flex-md-row gap-2 mb-4 align-middle">
+    <div class="form-group" >
+        <input type="text" name="FirstNameSearchString" class="form-control"
+            value="@Model.FirstNameFilter" placeholder="First Name" />
+    </div>
+    <div class="form-group">
+        <input type="text" name="LastNameSearchString" class="form-control"
+               value="@Model.LastNameFilter" placeholder="Last Name" />
+    </div>
+    <div class="form-group">
+        <input type="text" name="PositionSearchString" class="form-control"
+            value="@Model.PositionFilter" placeholder="Position" />
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+    <a asp-page="./Index" class="btn btn-secondary btn-sm">See all</a>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Player[0].FirstName)
+                @Html.DisplayNameFor(model => model.Player.First().FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Player[0].LastName)
+                @Html.DisplayNameFor(model => model.Player.First().LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Player[0].Position)
+                @Html.DisplayNameFor(model => model.Player.First().Position)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Player[0].DateOfBirth)
+                @Html.DisplayNameFor(model => model.Player.First().DateOfBirth)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Player[0].Team)
+                @Html.DisplayNameFor(model => model.Player.First().Team)
             </th>
             <th></th>
         </tr>
