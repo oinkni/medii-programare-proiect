@@ -43,6 +43,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Player.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Player.ID">Edit</a> 
+    }
+    <a asp-page="./Index">Back to Players List</a>
 </div>

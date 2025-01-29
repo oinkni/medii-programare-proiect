@@ -1,12 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SportsTournamentApp.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization(options => { options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin")); });
+
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options => { 
+    options.Conventions.AuthorizeFolder("/Matches", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Teams/Create", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Teams/Edit", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Teams/Delete", "AdminPolicy");
+
+    options.Conventions.AuthorizePage("/Tournaments/Create", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Tournaments/Edit", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Tournaments/Delete", "AdminPolicy");
+
+    options.Conventions.AuthorizePage("/Players/Create", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Players/Edit", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Players/Delete", "AdminPolicy");
+});
+
 builder.Services.AddDbContext<SportsTournamentAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SportsTournamentAppContext") ?? throw new InvalidOperationException("Connection string 'SportsTournamentAppContext' not found.")));
+
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("SportsTournamentAppContext") ?? throw new InvalidOperationException("Connection string 'SportsTournamentAppContext' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 

@@ -7,9 +7,10 @@
 
 <h1>Players</h1>
 
-<p>
+
+@if (User.IsInRole("Admin")) {
     <a asp-page="Create">Create New</a>
-</p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -32,28 +33,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Player) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
+        @foreach (var item in Model.Player) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Team.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> 
+                        <a asp-page = "./Delete" asp-route-id="@item.ID">Delete</a> 
+                    }
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
+                 </td>
         </tr>
 }
     </tbody>

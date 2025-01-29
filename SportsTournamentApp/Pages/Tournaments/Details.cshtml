@@ -23,8 +23,10 @@
         </p>
         <p class="col-md-8 fs-4">@Html.DisplayFor(model => model.Tournament.Description)</p>
 
+         @if (User.IsInRole("Admin"))
+         {
         <a class="btn btn-lg btn-primary" role="button" asp-page="./Edit" asp-route-id="@Model.Tournament.ID">Edit</a>
-        <a class="btn btn-lg btn-primary" role="button" asp-page="./Index">Back to List</a>
+         }
     </div>
 </div>
 

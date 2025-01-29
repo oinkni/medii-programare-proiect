@@ -6,10 +6,10 @@
 }
 
 <h1>Teams</h1>
-
-<p>
+ @if (User.IsInRole("Admin"))
+                    {
     <a asp-page="Create">Create New</a>
-</p>
+                    }
 <table class="table">
     <thead>
         <tr>
@@ -44,9 +44,12 @@
                 @Html.DisplayFor(modelItem => item.FoundingDate)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    }
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> 
             </td>
         </tr>
 }
