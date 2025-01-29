@@ -4,12 +4,12 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div class="p-5 mb-4 bg-light border rounded-3">
-    <div class="container-fluid  py-5">
+<div class="p-4 mb-4 bg-light border rounded-3">
+    <div class="container-fluid  py-4">
         <h1 class="display-5 fw-bold">
-           <strong>@Html.DisplayFor(model => model.Tournament.Name)</strong>
+            <strong>@Html.DisplayFor(model => model.Tournament.Name)</strong>
         </h1>
-    
+
         @if (Model.Tournament.WinningTeam != null)
         {
             <h1 class="display-5 fw-bold">
@@ -22,7 +22,7 @@
             @(Model.Tournament.WinningTeam != null ? @Html.DisplayFor(model => model.Tournament.StartDate) : "TBD")
         </p>
         <p class="col-md-8 fs-4">@Html.DisplayFor(model => model.Tournament.Description)</p>
-  
+
         <a class="btn btn-lg btn-primary" role="button" asp-page="./Edit" asp-route-id="@Model.Tournament.ID">Edit</a>
         <a class="btn btn-lg btn-primary" role="button" asp-page="./Index">Back to List</a>
     </div>
@@ -35,8 +35,19 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <strong class="text-primary">@Html.DisplayFor(model => item.TeamA.Name)</strong> VS
-                        <strong class="text-danger">@(item.TeamB != null ? item.TeamB.Name : "TBD")</strong>
+                        <a class="text-primary" asp-page="/Teams/Details" asp-route-id="@item.TeamA.ID">
+                            @Html.DisplayFor(model => item.TeamA.Name)</a> VS
+
+                        @if (item.TeamB != null)
+                        {
+                            <a class="text-danger" asp-page="/Teams/Details" asp-route-id="@item.TeamB.ID">
+                                @(item.TeamB.Name)
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-danger">TBD</span>
+                        }
                     </h5>
 
                     <p class="card-text">

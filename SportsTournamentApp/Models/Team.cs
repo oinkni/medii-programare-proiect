@@ -15,5 +15,7 @@ namespace SportsTournamentApp.Models
         [Display(Name = "Founding Date")]
         [DataType(DataType.Date)]
         public DateTime FoundingDate { get; set; }
+
+        public ICollection<Player>? Players { get; set; }
     }
 }
