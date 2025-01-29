@@ -5,62 +5,49 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tournaments</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].WinningTeam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament[0].Spotlight)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Tournament) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WinningTeam.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Spotlight)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+<div class="container mt-4">
+    @foreach (var item in Model.Tournament)
+    {
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <h1 class="mb-0">@Html.DisplayFor(modelItem => item.Name)</h1>
+                <div class="mb-1 text-body-secondary">
+                    @Html.DisplayFor(modelItem => item.StartDate) -
+                    @(item.WinningTeam != null ? @Html.DisplayFor(modelItem => item.StartDate) : "TBD")
+                </div>
+                @if (item.WinningTeam != null) {
+                    <h5>
+                        <span>Winner:</span>
+                        <span class="text-success">@Html.DisplayFor(modelItem => item.WinningTeam.Name)</span>
+                    </h5>
+                }
+                <p class="card-text mb-auto">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </p>
+                <div class="position-relative">
+                    <a class="float-left m-2" asp-page="./Edit" asp-route-id="@item.ID">
+                        Edit
+                    </a>
+                    <a class="float-left m-2" asp-page="./Delete" asp-route-id="@item.ID">
+                            Delete
+                    </a>
+                <a class="float-left m-2" asp-page="./Details" asp-route-id="@item.ID">
+                        See More
+                    </a>
+                    <span class="clearfix"></span>
+                </div>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img src="~/logo_tournament.png" class="card-img-top" width="200" height="250"
+                        alt="@Html.DisplayFor(modelItem => item.DisplayName)">
+            </div>
+        </div>
+    }
+</div>

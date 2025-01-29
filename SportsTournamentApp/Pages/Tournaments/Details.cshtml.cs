@@ -30,6 +30,10 @@ namespace SportsTournamentApp.Pages.Tournaments
 
             var tournament = await _context.Tournament
                 .Include(a => a.WinningTeam)
+                .Include(a => a.Matches)
+                    .ThenInclude(a => a.TeamA)
+                .Include(a => a.Matches)
+                    .ThenInclude(a => a.TeamB)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (tournament == null)
             {

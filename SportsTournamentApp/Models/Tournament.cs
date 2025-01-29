@@ -23,19 +23,18 @@ namespace SportsTournamentApp.Models
 
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = false)]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
 
         [Display(Name = "Winning Team")]
         public int? WinningTeamID { get; set; }
         public Team? WinningTeam { get; set; }
-
-        [Display(Name = "Is in Spotlight")]
-        public bool Spotlight { get; set; } = false;
 
         public ICollection<Match>? Matches { get; set; }
 

@@ -4,52 +4,48 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>Tournament</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tournament.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tournament.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tournament.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tournament.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tournament.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tournament.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tournament.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tournament.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tournament.WinningTeam)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tournament.WinningTeam.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tournament.Spotlight)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tournament.Spotlight)
-        </dd>
-    </dl>
+<div class="p-5 mb-4 bg-light border rounded-3">
+    <div class="container-fluid  py-5">
+        <h1 class="display-5 fw-bold">
+           <strong>@Html.DisplayFor(model => model.Tournament.Name)</strong>
+        </h1>
+    
+        @if (Model.Tournament.WinningTeam != null)
+        {
+            <h1 class="display-5 fw-bold">
+                <span>Winner:</span>
+                <span class="text-success">@Html.DisplayFor(model => model.Tournament.WinningTeam.Name)</span>
+            </h1>
+        }
+        <p class="col-md-8 fs-4">
+            @Html.DisplayFor(model => model.Tournament.StartDate) -
+            @(Model.Tournament.WinningTeam != null ? @Html.DisplayFor(model => model.Tournament.StartDate) : "TBD")
+        </p>
+        <p class="col-md-8 fs-4">@Html.DisplayFor(model => model.Tournament.Description)</p>
+  
+        <a class="btn btn-lg btn-primary" role="button" asp-page="./Edit" asp-route-id="@Model.Tournament.ID">Edit</a>
+        <a class="btn btn-lg btn-primary" role="button" asp-page="./Index">Back to List</a>
+    </div>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Tournament.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+<div class="d-flex flex-column flex-md-row flex-wrap mt-4">
+    @foreach (var item in Model.Tournament.Matches)
+    {
+        <div class="col-12 col-md-3 pb-4 pe-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <strong class="text-primary">@Html.DisplayFor(model => item.TeamA.Name)</strong> VS
+                        <strong class="text-danger">@(item.TeamB != null ? item.TeamB.Name : "TBD")</strong>
+                    </h5>
+
+                    <p class="card-text">
+                        <strong>Time:</strong>  @Html.DisplayFor(model => item.MatchDate) <br />
+                        <strong>Location:</strong>  @Html.DisplayFor(model => item.Location) <br />
+                        <strong>Result:</strong>  @Html.DisplayFor(model => item.Result)
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
 </div>

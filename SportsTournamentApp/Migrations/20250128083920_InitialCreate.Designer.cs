@@ -146,9 +146,6 @@ namespace SportsTournamentApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Spotlight")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 

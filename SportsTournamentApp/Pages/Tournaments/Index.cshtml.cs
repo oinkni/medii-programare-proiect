@@ -24,7 +24,9 @@ namespace SportsTournamentApp.Pages.Tournaments
         public async Task OnGetAsync()
         {
             Tournament = await _context.Tournament
-                .Include(t => t.WinningTeam).ToListAsync();
+                .OrderByDescending(t => t.StartDate)
+                .Include(t => t.WinningTeam)
+                .ToListAsync();
         }
     }
 }

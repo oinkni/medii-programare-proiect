@@ -17,6 +17,7 @@ namespace SportsTournamentApp.Models
         public string Position { get; set; }
 
         [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = false)]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
